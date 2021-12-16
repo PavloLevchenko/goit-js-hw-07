@@ -1,14 +1,16 @@
 import { galleryItems } from "./gallery-items.js";
 
 // Change code below this line
-let divs = "";
-for (const image of galleryItems) {
-	divs += `<div class="gallery__item">
+const divs = galleryItems.reduce((divs, image) => {
+	return (
+		divs +
+		`<div class="gallery__item">
 		<a href="${image.original}" class="gallery__link">
 			<image class="gallery__image" src="${image.preview}" alt="${image.description}" data-source="${image.original}">
 		</a>
-	</div>`;
-}
+	</div>`
+	);
+}, "");
 
 const instance = basicLightbox.create(
 	`
@@ -46,4 +48,4 @@ function showImg(event) {
 
 const gallery = document.querySelector("div.gallery");
 gallery.addEventListener("click", showImg);
-gallery.insertAdjacentHTML("beforeend", `${divs}`);
+gallery.insertAdjacentHTML("beforeend", divs);
